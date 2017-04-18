@@ -32,11 +32,14 @@ public class ExceptionInterceptor {
         try {
             return ctx.proceed();
         } catch (Exception ex) {
-            System.out.println("---------------------------------");
-            System.out.println("Exception had been caught");
-            System.out.println("Message :: " + ex.getMessage());
-            System.out.println("---------------------------------");
-            return ExceptionResponse.createResponse(ex.getMessage());
+            if(exceptions.contains(ex.getClass())) {
+                System.out.println("---------------------------------");
+                System.out.println("Exception had been caught");
+                System.out.println("Message :: " + ex.getMessage());
+                System.out.println("---------------------------------");
+                return ExceptionResponse.createResponse(ex.getMessage());
+            }
+            return ex;
         }
     }
     
